@@ -9,7 +9,7 @@ router = APIRouter(prefix="/predict", tags=["Prediction"])
 
 ALLOWED_TYPES = ["image/jpg", "image/jpeg", "image/png"]
 
-# --- Confidence rules (for your 38-class model) ---
+# --- Confidence rules  ---
 TOP1_MIN = 0.55
 MARGIN_MIN = 0.10
 
@@ -19,7 +19,6 @@ MIN_BRIGHTNESS = 20.0
 MAX_BRIGHTNESS = 245.0
 
 # --- Leafness gate (green-ish pixels) ---
-# Keep low to allow powdery/gray leaves, but still block obvious screenshots
 LEAF_GREEN_RATIO_MIN = 0.04
 
 
