@@ -24,28 +24,23 @@ This API allows users to upload a plant leaf image and receive:
 
 ## 📁 Project Structure
 
-image-analyzer-backend/
-│
-├── app/
-│ ├── api/
-│ │ └── v1/
-│ │ └── predict.py
-│ │
-│ ├── services/
-│ │ ├── image_service.py
-│ │ ├── model_service.py
-│ │ └── plant_gate.py
-│ │
-│ └── main.py
-│
-├── models/
-│ ├── plant_model.keras
-│ └── labels.json
-│
-├── requirements.txt
-└── README.md
+```bash
+app/
+ ├── api/v1/predict.py        # Prediction endpoint
+ ├── services/
+ │    ├── image_service.py    # Image preprocessing
+ │    ├── model_service.py    # Model loading & inference
+ │    └── plant_gate.py       # Plant domain validation
+ └── main.py                  # FastAPI entry point
 
----
+models/
+ ├── plant_model.keras        # Trained TensorFlow model
+ └── labels.json              # Class labels
+
+requirements.txt
+README.md
+```
+
 
 ## 📦 Installation
 
