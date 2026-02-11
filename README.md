@@ -44,49 +44,131 @@ README.md
 
 ## 📦 Installation
 
-### 1️⃣ Clone the repository
+Follow these steps to set up the backend locally.
+
+### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-cd image-analyzer-backend
-2️⃣ Create a virtual environment
+git clone https://github.com/Dubow/ai-image-classifier.git
+cd ai-image-classifier
+```
+
+### 2️⃣ Create a Virtual Environment
+
+Make sure you are using Python 3.10 or higher.
+
+```bash
 python -m venv venv
+```
+
 Activate it:
 
-Windows
-
+**Windows**
+```bash
 venv\Scripts\activate
-Mac/Linux
+```
 
+**Mac/Linux**
+```bash
 source venv/bin/activate
-3️⃣ Install dependencies
+```
+
+---
+
+### 3️⃣ Install Dependencies
+
+```bash
 pip install -r requirements.txt
-▶️ Running the Server
+```
+
+> Ensure that `requirements.txt` contains only the necessary packages (FastAPI, Uvicorn, TensorFlow, Pillow, NumPy, etc.).
+
+---
+
+## ▶️ Running the API
+
 Start the development server:
 
+```bash
 uvicorn app.main:app --reload
-The API will be available at:
+```
 
+The server will run at:
+
+```
 http://127.0.0.1:8000
-Swagger Documentation:
+```
 
+---
+
+## 🌐 API Documentation
+
+### Swagger UI (Interactive Testing)
+
+```
 http://127.0.0.1:8000/docs
-📡 API Endpoint
-POST /api/v1/predict/
-Upload a plant leaf image.
+```
 
-Request
-Content-Type: multipart/form-data
+### ReDoc
 
-Field name: file
+```
+http://127.0.0.1:8000/redoc
+```
 
-Example cURL Request
-curl -X 'POST' \
-  'http://127.0.0.1:8000/api/v1/predict/' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'file=@leaf.jpg;type=image/jpeg'
-Example Response
+---
+
+## 📡 Prediction Endpoint
+
+### POST `/api/v1/predict/`
+
+Upload a plant leaf image for analysis.
+
+### 📤 Request Details
+
+- Method: `POST`
+- Content-Type: `multipart/form-data`
+- Form field: `file`
+
+### Example cURL Request
+
+```bash
+curl -X POST "http://127.0.0.1:8000/api/v1/predict/" \
+  -H "accept: application/json" \
+  -H "Content-Type: multipart/form-data" \
+  -F "file=@leaf_image.jpg;type=image/jpeg"
+```
+
+---
+
+## 📦 Required Model Files
+
+After cloning, ensure the following files exist:
+
+```
+models/
+├── plant_model.keras
+└── labels.json
+```
+
+> ⚠️ Model files are not included in the repository due to size limitations.  
+Place your trained model inside the `models/` directory before running the server.
+
+---
+
+## 🧠 How the System Works
+
+1. User uploads a leaf image.
+2. Image is validated and resized to 224x224.
+3. Basic quality checks are applied.
+4. A lightweight plant-domain gate checks if the image resembles a plant.
+5. The trained TensorFlow model predicts disease probabilities.
+6. Confidence thresholds determine whether the result is valid or marked as `unknown`.
+
+---
+
+## 📊 Example Response
+
+```json
 {
   "filename": "leaf.png",
   "top_label": "Tomato___Late_blight",
@@ -110,84 +192,32 @@ Example Response
     }
   ]
 }
-🧠 How the System Works
-User uploads an image.
+```
 
-Image is validated and resized to 224x224.
+---
 
-Basic quality checks are applied.
+## ⚠️ Notes
 
-(Optional) Domain gate checks if image appears to be a plant.
+- Best results are obtained using clear, close-up leaf images.
+- Images with heavy background clutter may reduce accuracy.
+- Non-leaf images will return `"unknown"`.
+- Low confidence predictions include a helpful note in the response.
 
-The trained CNN model predicts disease probabilities.
+---
 
-Confidence thresholds determine whether result is valid or marked as unknown.
+## 🤝 Contributing
 
-📊 Dataset
-Model trained using:
+If contributing:
 
-Kaggle Plant Disease Dataset
-https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset
+```bash
+git checkout -b feature/your-feature-name
+```
 
-The dataset contains multiple crops and disease classes including:
+Commit and push changes, then open a Pull Request.
 
-Tomato
+---
 
-Corn (Maize)
+## 📄 License
 
-Apple
-
-Grape
-
-Strawberry
-
-Pepper
-
-Potato
-
-Squash
-
-Cherry
-
-And more...
-
-🛡 Confidence Handling
-The API marks predictions as unknown when:
-
-Top confidence is below threshold
-
-Margin between top predictions is too small
-
-Image quality is poor
-
-The image does not resemble a plant
-
-This prevents misleading classifications.
-
-⚠️ Limitations
-Works best with clear, close-up leaf images.
-
-Background clutter may reduce accuracy.
-
-Not designed for full plant or field-level images.
-
-Not suitable for non-plant objects.
-
-👨‍💻 Author
-Abdirahman Dubow
-Plant Disease Detection Backend
-FastAPI + TensorFlow Project
-
-📌 Future Improvements
-Add model versioning
-
-Deploy to cloud (Render / Railway / AWS)
-
-Add database logging
-
-Integrate frontend UI
-
-Improve plant/non-plant detection
-
-📄 License
-This project is for academic and research purposes. Not for commercial use. Please credit the author if you use or modify this code.
+This project is developed for academic and research purposes.  
+It may be reused and modified for learning and internship demonstrations.
