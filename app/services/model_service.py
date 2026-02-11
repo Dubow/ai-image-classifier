@@ -26,7 +26,7 @@ def predict_topk(img_batch: np.ndarray, top_k: int = 3):
     model, labels = get_model_and_labels()
 
     x = img_batch.astype("float32")
-    # your model has mobilenet_v2 preprocess inside, so feed 0..255
+    # model has mobilenet_v2 preprocess inside, so feed 0..255
     if x.max() <= 1.0:
         x = x * 255.0
 
