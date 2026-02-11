@@ -4,3 +4,6 @@ data/
 *.h5
 *.zip
 .env
+
+# Models
+models/plant_model.keras
