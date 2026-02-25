@@ -1,0 +1,10 @@
+# flyctl launch added from .gitignore
+**\venv
+**\__pycache__
+**\data
+**\*.h5
+**\*.zip
+**\.env
+
+# Models
+
